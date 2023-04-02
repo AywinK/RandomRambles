@@ -52,6 +52,8 @@ function BlogForm() {
                     { required: true }
                 )}
                 placeholder="Enter your blog content here"
+                resize="vertical"
+                minH={200}
             />
 
             <Button
