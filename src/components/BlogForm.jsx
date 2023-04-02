@@ -1,60 +1,129 @@
-import { FormControl, FormLabel, Input, Textarea, Button } from "@chakra-ui/react";
+import { FormControl, FormLabel, Input, Textarea, Button, FormErrorMessage, Container } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import isValidUrl from "./helperFuncs/isValidUrl";
+import { writeData, reference } from "./helperFuncs/handleSubmitBlogForm";
+import { onValue } from "firebase/database";
 
 function BlogForm() {
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
     const onSubmit = data => {
         console.log(data);
         const textContentArr = data.textContent.split("\n");
-        console.log(textContentArr);
+
+
+
+
+            if (data===6) {
+                console.log(data);
+                // const currentData = JSON.parse(data.blogsDB);
+                data.push({
+                    title: data.title,
+                    imageURL: data.imageURL,
+                    textContentArr: textContentArr
+                });
+                writeData(JSON.stringify(data.blogsDB));
+            } if (data) {
+                writeData(
+                    [{
+                        title: data.title,
+                        imageURL: data.imageURL,
+                        textContentArr: textContentArr
+                    }]
+                );
+            }
+
+
         reset();
     };
 
-
     return (
-        <FormControl
+        <Container
             maxW="600px"
             display="flex"
             flexDir="column"
             alignItems="center"
             gap={2}
-            isRequired
+            textAlign="center"
             as="form"
             onSubmit={handleSubmit(onSubmit)}
         >
 
-            <FormLabel>Blog Title</FormLabel>
-            <Input
-                type="text"
-                {...register(
-                    "title",
-                    { required: true }
-                )}
-                placeholder="Blog Title"
-            ></Input>
+            <FormControl
+                maxW="600px"
+                display="flex"
+                flexDir="column"
+                alignItems="center"
+                gap={2}
+                textAlign="center"
+                isRequired
+                isInvalid={errors.title}
+            >
+                <FormLabel
+                    htmlFor="title"
+                >Blog Title</FormLabel>
+                <Input
+                    type="text"
+                    {...register(
+                        "title",
+                        { required: true }
+                    )}
+                    placeholder="Blog Title"
+                ></Input>
+            </FormControl>
 
-            <FormLabel>Add a link to image</FormLabel>
-            <Input
-                type="text"
-                {...register(
-                    "imageURL",
-                    { required: true }
-                )}
-                placeholder="Image URL"
-            ></Input>
+            <FormControl
+                maxW="600px"
+                display="flex"
+                flexDir="column"
+                alignItems="center"
+                gap={2}
+                textAlign="center"
+                isRequired
+                isInvalid={errors.imageURL}
+            >
+                <FormLabel
+                    htmlFor="imageURL"
+                >Add a link to image</FormLabel>
+                <Input
+                    type="text"
+                    {...register(
+                        "imageURL",
+                        {
+                            required: true,
+                            validate: isValidUrl,
+                        }
+                    )}
+                    placeholder="Image URL"
+                ></Input>
+                {errors.imageURL && <FormErrorMessage>{errors.imageURL.message}</FormErrorMessage>}
+            </FormControl>
 
-            <FormLabel>Blog Content</FormLabel>
-            <Textarea
-                type="text"
-                {...register(
-                    "textContent",
-                    { required: true }
-                )}
-                placeholder="Enter your blog content here"
-                resize="vertical"
-                minH={200}
-            />
+            <FormControl
+                maxW="600px"
+                display="flex"
+                flexDir="column"
+                alignItems="center"
+                gap={2}
+                textAlign="center"
+                isRequired
+                isInvalid={errors.textContent}
+            >
+                <FormLabel
+                    htmlFor="textContent"
+                >Blog Content</FormLabel>
+                <Textarea
+                    type="text"
+                    {...register(
+                        "textContent",
+                        { required: true }
+                    )}
+                    placeholder="Enter your blog content here"
+                    resize="vertical"
+                    minH={200}
+                />
+            </FormControl>
 
             <Button
                 bg="red.200"
@@ -63,7 +132,7 @@ function BlogForm() {
                 type="submit"
             >Submit Blog
             </Button>
-        </FormControl>
+        </Container>
     )
 }
 
