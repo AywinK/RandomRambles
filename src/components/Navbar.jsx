@@ -1,5 +1,5 @@
-import { Heading, Flex, Link } from "@chakra-ui/react"
-import { NavLink } from "react-router-dom";
+import { Flex } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 function Navbar(props) {
     console.log(props);
@@ -12,7 +12,7 @@ function Navbar(props) {
             pr={[0, 1]}
             ml={[5, 0]}
         >
-            {props.pages.map((pageObj, key) => <Link key={key}>{pageObj.name}</Link>)}
+            {props.pages.map((pageObj, key) => (<Link key={key} to={pageObj.route}>{pageObj.name}</Link>))}
         </Flex>
     )
 }
