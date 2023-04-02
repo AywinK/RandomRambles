@@ -5,7 +5,9 @@ function BlogForm() {
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const onSubmit = data => {
-        console.log(data)
+        console.log(data);
+        const textContentArr = data.textContent.split("\n");
+        console.log(textContentArr);
         reset();
     };
 
