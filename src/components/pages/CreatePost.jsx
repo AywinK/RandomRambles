@@ -1,9 +1,15 @@
+import { Center } from "@chakra-ui/react"
+import BlogForm from "../BlogForm"
+
+
 
 function CreatePost() {
     return (
-        <>
-        test
-        </>
+        <Center
+            m={5}
+        >
+            <BlogForm />
+        </Center>
     )
 }
 

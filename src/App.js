@@ -8,7 +8,7 @@ function App() {
     <>
       <BrowserRouter>
         <Header
-          title="Travel Blogs"
+          title="RandomRambles"
           pages={[{ name: "Home", route: "/" }, { name: "Create Post", route: "/createpost" }]}
         />
         <Routes>
