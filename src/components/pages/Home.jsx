@@ -2,7 +2,7 @@ import HeroBanner from "../HeroBanner";
 
 function Home() {
     return (
-        <HeroBanner />
+        <HeroBanner title="Elit eget gravida cum sociis natoque" />
     )
 }
 
