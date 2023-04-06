@@ -1,37 +1,26 @@
 import { FormControl, FormLabel, Input, Textarea, Button, FormErrorMessage, Container } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import isValidUrl from "./helperFuncs/isValidUrl";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "./helperFuncs/firebaseConfig";
 
 function BlogForm() {
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
-    const onSubmit = data => {
+    const onSubmit = async (data) => {
         console.log(data);
-        const textContentArr = data.textContent.split("\n");
+        const { title, imageURL, textContent} = data;
+        const textContentArr = textContent.split("\n");
 
+            const blogsRef = collection(db, "blogs");
 
-
-
-            if (data===6) {
-                console.log(data);
-                // const currentData = JSON.parse(data.blogsDB);
-                data.push({
-                    title: data.title,
-                    imageURL: data.imageURL,
-                    textContentArr: textContentArr
-                });
-                // writeData(JSON.stringify(data.blogsDB));
-            } if (data) {
-                // writeData(
-                //     [{
-                //         title: data.title,
-                //         imageURL: data.imageURL,
-                //         textContentArr: textContentArr
-                //     }]
-                // );
-            }
-
+        await addDoc(blogsRef, {
+            title,
+            imageURL,
+            createdAt: serverTimestamp(),
+            textContentArr
+        });
 
         reset();
     };
