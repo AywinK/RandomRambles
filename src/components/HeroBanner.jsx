@@ -1,7 +1,8 @@
 import { Grid, Image, Box, Heading } from "@chakra-ui/react";
 import homeBanner from "../assets/images/homeBanner.jpg"
 
-function HeroBanner() {
+function HeroBanner(props) {
+    const { title } = props;
     return (
         <Grid
             templateColumns="repeat(2, 1fr)"
@@ -34,7 +35,7 @@ function HeroBanner() {
                     as="h1"
                     textAlign="center"
                 >
-                    Elit eget gravida cum sociis natoque
+                    {title}
                 </Heading>
             </Box>
 
