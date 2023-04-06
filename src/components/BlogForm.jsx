@@ -1,8 +1,6 @@
 import { FormControl, FormLabel, Input, Textarea, Button, FormErrorMessage, Container } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import isValidUrl from "./helperFuncs/isValidUrl";
-import { writeData, reference } from "./helperFuncs/handleSubmitBlogForm";
-import { onValue } from "firebase/database";
 
 function BlogForm() {
 
@@ -23,15 +21,15 @@ function BlogForm() {
                     imageURL: data.imageURL,
                     textContentArr: textContentArr
                 });
-                writeData(JSON.stringify(data.blogsDB));
+                // writeData(JSON.stringify(data.blogsDB));
             } if (data) {
-                writeData(
-                    [{
-                        title: data.title,
-                        imageURL: data.imageURL,
-                        textContentArr: textContentArr
-                    }]
-                );
+                // writeData(
+                //     [{
+                //         title: data.title,
+                //         imageURL: data.imageURL,
+                //         textContentArr: textContentArr
+                //     }]
+                // );
             }
 
 
