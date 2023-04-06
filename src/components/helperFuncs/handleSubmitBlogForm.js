@@ -29,13 +29,23 @@ console.log(db);
 const database = getDatabase();
 export const reference = ref(database, "/blogsDB");
 
-export function writeData(arr) {
-    const data = JSON.stringify(arr);
-    console.log(data);
-    set(reference, {
-        data: arr
-    });
-};
+// export function writeData(arr) {
+//     const data = JSON.stringify(arr);
+//     console.log(data);
+//     set(reference, {
+//         data: arr
+//     });
+// };
+
+export function writeData(data) {
+    set(reference, data)
+      .then(() => {
+        console.log("Data written successfully");
+      })
+      .catch((error) => {
+        console.log("Error writing data: ", error);
+      });
+  }
 
 export const blogsDBData = onValue(
     reference,
