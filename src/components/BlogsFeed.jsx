@@ -1,7 +1,7 @@
 import { Button, Container, Flex, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { collectionRef } from "./helperFuncs/firebaseConfig";
-import { onSnapshot, query } from "firebase/firestore";
+import { onSnapshot, query, limit } from "firebase/firestore";
 import FeedCard from "./FeedCard";
 
 
@@ -18,7 +18,7 @@ function BlogsFeed() {
     console.log(collectionRef);
 
     useEffect(() => {
-        const queryBlogs = query(collectionRef);
+        const queryBlogs = query(collectionRef, limit(10));
         const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
             console.log("test");
             const blogs = [];
