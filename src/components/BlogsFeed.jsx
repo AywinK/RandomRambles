@@ -13,12 +13,23 @@ function BlogsFeed() {
     const handleClick = (e) => {
         console.log(e);
         setOrderFeedBy(e.target.value);
-    }
+    };
 
-    console.log(collectionRef);
+    function selectQuery(orderFeedBy) {
+        switch (orderFeedBy) {
+            case "recently created":
+                return (query(collectionRef, limit(6), orderBy("createdAt", "desc")));
+            case "view all":
+                return (query(collectionRef, orderBy("createdAt", "desc")))
+
+            default:
+                console.log("hmm unexpected default case");
+        }
+
+    };
 
     useEffect(() => {
-        const queryBlogs = query(collectionRef, limit(6), orderBy("createdAt", "desc"));
+        const queryBlogs = selectQuery(orderFeedBy);
         const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
             console.log("test");
             const blogs = [];
@@ -68,10 +79,10 @@ function BlogsFeed() {
                     fontSize={["smaller", "initial"]}
                     p={5}
                     borderRadius={40}
-                    colorScheme={((orderFeedBy === "recently viewed") ? "linkedin" : "whiteAlpha")}
+                    colorScheme={((orderFeedBy === "view all") ? "linkedin" : "whiteAlpha")}
                     onClick={handleClick}
-                    value="recently viewed"
-                >Recently Viewed</Button>
+                    value="view all"
+                >View All</Button>
 
             </Flex>
 
