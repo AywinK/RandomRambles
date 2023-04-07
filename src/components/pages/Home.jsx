@@ -4,7 +4,7 @@ import HeroBanner from "../HeroBanner";
 function Home() {
     return (
         <>
-            <HeroBanner title="Elit eget gravida cum sociis natoque" />
+            <HeroBanner title="Discover a World of Knowledge: Explore our Latest Articles and Insights Today" />
             <BlogsFeed />
         </>
     )
