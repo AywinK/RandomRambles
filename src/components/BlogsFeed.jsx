@@ -1,7 +1,7 @@
-import { Button, Container, Flex, Text } from "@chakra-ui/react";
+import { Button, Container, Flex, Grid, Text } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { collectionRef } from "./helperFuncs/firebaseConfig";
-import { onSnapshot, query, limit } from "firebase/firestore";
+import { onSnapshot, query, limit, orderBy } from "firebase/firestore";
 import FeedCard from "./FeedCard";
 
 
@@ -18,7 +18,7 @@ function BlogsFeed() {
     console.log(collectionRef);
 
     useEffect(() => {
-        const queryBlogs = query(collectionRef, limit(10));
+        const queryBlogs = query(collectionRef, limit(6), orderBy("createdAt", "desc"));
         const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
             console.log("test");
             const blogs = [];
@@ -26,7 +26,7 @@ function BlogsFeed() {
                 blogs.push({ ...doc.data(), id: doc.id });
             });
             console.table(blogs);
-            blogs.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
+            // blogs.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
             setBlogsArr(blogs);
         });
         return () => unsubscribeSnap();
@@ -36,20 +36,28 @@ function BlogsFeed() {
 
 
     return (
-        <Container>
+        <Container
+            display="flex"
+            flexDir="column"
+            alignItems="center"
+            py={2.5}
+        >
 
             <Flex
-            justify="center"
-            align="center"
-            gap={5}
-            mb={5}
+                justify="center"
+                align="center"
+                gap={5}
+                mb={5}
+                maxW="100%"
             >
 
                 <Text
-                    mr={5}
+                    mr={1}
                 >Sort by:</Text>
 
                 <Button
+                    fontSize={["smaller", "initial"]}
+                    p={5}
                     borderRadius={40}
                     colorScheme={((orderFeedBy === "recently created") ? "linkedin" : "whiteAlpha")}
                     onClick={handleClick}
@@ -57,6 +65,8 @@ function BlogsFeed() {
                 >Recently Created</Button>
 
                 <Button
+                    fontSize={["smaller", "initial"]}
+                    p={5}
                     borderRadius={40}
                     colorScheme={((orderFeedBy === "recently viewed") ? "linkedin" : "whiteAlpha")}
                     onClick={handleClick}
@@ -65,12 +75,15 @@ function BlogsFeed() {
 
             </Flex>
 
-            <Container
-            align="center"
-            gap={5}
+            <Grid
+                align="center"
+                // templateRows={[1, 2, 4]}
+                templateColumns={["repeat(1, 1fr)", "repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)"]}
+                columnGap={5}
+                rowGap={2.5}
             >
                 {blogsArr.map((blog, index) => <FeedCard key={index} title={blog.title} imageURL={blog.imageURL} textContentArr={blog.textContentArr} />)}
-            </Container>
+            </Grid>
         </Container>
     )
 };

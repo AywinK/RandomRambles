@@ -12,7 +12,9 @@ function Header(props) {
         justifyContent="space-between"
         p={3}
         >
-            <Heading>{props.title}</Heading>
+            <Heading
+            fontSize={["sm", "3xl"]}
+            >{props.title}</Heading>
             <Navbar pages = {props.pages} />
         </Flex>
     )
