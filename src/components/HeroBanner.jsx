@@ -34,6 +34,8 @@ function HeroBanner(props) {
                 <Heading
                     as="h1"
                     textAlign="center"
+                    fontSize={["sm", "3xl"]}
+                    p={1}
                 >
                     {title}
                 </Heading>

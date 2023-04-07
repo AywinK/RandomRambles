@@ -7,20 +7,23 @@ function FeedCard(props) {
 
     return (
 <Card
-  direction={{ base: 'column', sm: 'row' }}
+  direction="row-reverse"
   overflow='hidden'
   variant='outline'
   my={2}
-  h={300}
+  h={360}
+  minW={320}
 >
   <Image
     objectFit='cover'
-    maxW={{ base: '100%', sm: '200px' }}
+    w="45%"
     src={imageURL}
     alt={title}
   />
 
-  <Stack>
+  <Stack
+  my={1}
+  >
     <CardBody>
       <Heading
       size='md'
