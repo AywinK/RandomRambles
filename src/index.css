@@ -12,7 +12,21 @@ code {
     monospace;
 }
 
-#root, html {
+#root,
+html {
   background-color: black;
   color: white;
+}
+
+@media screen and (min-width: 900px) {
+
+  .card-grow {
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  .card-grow:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+  }
 }

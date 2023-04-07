@@ -5,8 +5,11 @@ function FeedCard(props) {
 
     const { title, imageURL, textContentArr } = props;
 
+    const handleHover = () => "";
+
     return (
 <Card
+  className='card-grow'
   direction="row-reverse"
   overflow='hidden'
   variant='outline'
