@@ -11,6 +11,7 @@ function FeedCard(props) {
   overflow='hidden'
   variant='outline'
   my={2}
+  h={300}
 >
   <Image
     objectFit='cover'
