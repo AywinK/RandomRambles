@@ -12,28 +12,28 @@ function BlogPage(props) {
 
   console.log(id)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const queryBlogs = query(collectionRef);
+  //   const queryBlogs = query(collectionRef);
 
-    const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
-      const blogDoc = snap.docs.filter(doc => doc.id === id)[0];
-      // Update specific document's field
-        if (blogDoc) {
-          const viewCount = blogDoc.data().viewCount || 0;
-          console.log(blogDoc.data())
-          const updatedViewCount = viewCount + 1;
-          const specificDocRef = doc(collectionRef, id);
-          updateDoc(specificDocRef, { viewCount: updatedViewCount });
-        } else {
-          console.log("Document does not exist!");
-        }
-    });
+  //   const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
+  //     const blogDoc = snap.docs.filter(doc => doc.id === id)[0];
+  //     // Update specific document's field
+  //       if (blogDoc) {
+  //         const viewCount = blogDoc.data().viewCount || 0;
+  //         console.log(blogDoc.data())
+  //         const updatedViewCount = viewCount + 1;
+  //         const specificDocRef = doc(collectionRef, id);
+  //         updateDoc(specificDocRef, { viewCount: updatedViewCount });
+  //       } else {
+  //         console.log("Document does not exist!");
+  //       }
+  //   });
 
 
 
-    return () => unsubscribeSnap();
-  }, [id]);
+  //   return () => unsubscribeSnap();
+  // }, [id]);
 
   return (
     <Box>
