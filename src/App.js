@@ -39,7 +39,7 @@ console.log(blogsArr);
           {blogsArr.map(blog => {
             const {title, id, textContentArr, imageURL} = blog;
             return (
-              <Route key={id} path={`/${id}`} element={<BlogPage title={title} imageURL={imageURL} textContentArr={textContentArr} id={id} />}></Route>
+              <Route key={id} path={`/${title}`} element={<BlogPage title={title} imageURL={imageURL} textContentArr={textContentArr} id={id} />}></Route>
             )
           })}
         </Routes>

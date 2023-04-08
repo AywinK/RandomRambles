@@ -11,7 +11,7 @@ function FeedCard(props) {
 
 
   return (
-    <Link to={id}>
+    <Link to={title}>
       <Card
         className='card-grow'
         direction="row-reverse"
