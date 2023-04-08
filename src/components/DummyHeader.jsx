@@ -2,16 +2,11 @@ import { Heading, Flex } from "@chakra-ui/react";
 
 import Navbar from "./Navbar";
 
-function Header(props) {
+function DummyHeader(props) {
     console.log(props)
     return (
         <Flex
-        position="fixed"
-        top={0}
-        left={0}
-        width="100%"
-        zIndex={1}
-        as="header"
+        as="div"
         bg="red.100"
         alignitems="center"
         justifyContent="space-between"
@@ -25,4 +20,4 @@ function Header(props) {
     )
 }
 
-export default Header
+export default DummyHeader

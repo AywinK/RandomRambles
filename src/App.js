@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import DummyHeader from "./components/DummyHeader";
 import CreatePost from "./components/pages/CreatePost";
 import Home from "./components/pages/Home";
 import { useEffect, useState } from "react";
@@ -33,6 +34,11 @@ console.log(blogsArr);
           title="RandomRambles"
           pages={[{ name: "Home", route: "/" }, { name: "Create Post", route: "/createpost" }]}
         />
+        <DummyHeader
+          title="RandomRambles"
+          pages={[{ name: "Home", route: "/" }, { name: "Create Post", route: "/createpost" }]}
+        />
+
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/createpost" element={<CreatePost />}></Route>
