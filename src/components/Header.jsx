@@ -10,7 +10,7 @@ function Header(props) {
         top={0}
         left={0}
         width="100%"
-        zIndex={1}
+        zIndex={100}
         as="header"
         bg="red.100"
         alignitems="center"
