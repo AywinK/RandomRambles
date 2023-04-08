@@ -4,7 +4,6 @@ import { collectionRef } from "./helperFuncs/firebaseConfig";
 import { onSnapshot, query, limit, orderBy } from "firebase/firestore";
 import FeedCard from "./FeedCard";
 
-
 function BlogsFeed() {
 
     const [orderFeedBy, setOrderFeedBy] = useState("recently created");
@@ -16,17 +15,21 @@ function BlogsFeed() {
     };
 
     function selectQuery(orderFeedBy) {
-        switch (orderFeedBy) {
-            case "recently created":
-                return (query(collectionRef, limit(6), orderBy("createdAt", "desc")));
-            case "view all":
-                return (query(collectionRef, orderBy("createdAt", "desc")))
+        const orderOptions = {
+            "recently created": () => query(collectionRef, limit(6), orderBy("createdAt", "desc")),
+            "most viewed": () => query(collectionRef, limit(6), orderBy("views", "desc")),
+            "view all": () => query(collectionRef, orderBy("createdAt", "desc"))
+        };
 
-            default:
-                console.log("hmm unexpected default case");
+        const selectedOrderOption = orderOptions[orderFeedBy];
+
+        if (!selectedOrderOption) {
+            throw new Error("Invalid orderFeedBy value: " + orderFeedBy);
         }
 
-    };
+        return selectedOrderOption();
+    }
+
 
     useEffect(() => {
         const queryBlogs = selectQuery(orderFeedBy);
@@ -37,14 +40,12 @@ function BlogsFeed() {
                 blogs.push({ ...doc.data(), id: doc.id });
             });
             console.table(blogs);
-            // blogs.sort((a, b) => b.createdAt.seconds - a.createdAt.seconds);
             setBlogsArr(blogs);
         });
         return () => unsubscribeSnap();
     }, [orderFeedBy]);
 
     console.log(blogsArr);
-
 
     return (
         <Container
@@ -93,7 +94,7 @@ function BlogsFeed() {
                 columnGap={5}
                 rowGap={2.5}
             >
-                {blogsArr.map((blog, index) => <FeedCard key={index} title={blog.title} imageURL={blog.imageURL} textContentArr={blog.textContentArr} />)}
+                {blogsArr.map((blog) => <FeedCard key={blog.id} id={blog.id} title={blog.title} imageURL={blog.imageURL} textContentArr={blog.textContentArr} />)}
             </Grid>
         </Container>
     )
