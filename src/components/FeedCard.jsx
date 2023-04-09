@@ -37,6 +37,9 @@ function FeedCard(props) {
           <CardBody>
             <Heading
               size='md'
+              noOfLines={5}
+              textOverflow="ellipsis"
+              overflow="hidden"
             >{title}</Heading>
 
             <Text
