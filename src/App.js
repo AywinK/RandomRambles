@@ -15,6 +15,10 @@ function App() {
 
   const [blogsArr, setBlogsArr] = useState([]);
 
+  const [recentlyViewedBlogPage, setRecentlyViewedBlogPage] = useState("test");
+
+  console.log(recentlyViewedBlogPage + " line 20")
+
   useEffect(() => {
     const queryBlogs = query(collectionRef, orderBy("createdAt", "desc"));
     const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
@@ -49,7 +53,7 @@ function App() {
             {blogsArr.map(blog => {
               const { title, id, textContentArr, imageURL } = blog;
               return (
-                <Route key={id} path={`/${title}`} element={<BlogPage title={title} imageURL={imageURL} textContentArr={textContentArr} id={id} />}></Route>
+                <Route key={id} path={`/${title}`} element={<BlogPage setRecentlyViewedBlogPage={setRecentlyViewedBlogPage} title={title} imageURL={imageURL} textContentArr={textContentArr} id={id} />}></Route>
               )
             })}
           </Routes>
