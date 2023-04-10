@@ -8,14 +8,9 @@ import { collectionRef } from "./helperFuncs/firebaseConfig";
 
 function BlogPage(props) {
 
-  const { setRecentlyViewedBlogPage, id, title, imageURL, textContentArr } = props;
+  const { id, title, imageURL, textContentArr } = props;
 
-  console.log(id);
-
-  useEffect(() => {
-    setRecentlyViewedBlogPage(id);
-
-  }, [])
+  console.log(id)
 
   // useEffect(() => {
 

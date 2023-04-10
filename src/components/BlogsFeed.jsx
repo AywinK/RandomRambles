@@ -34,14 +34,18 @@ function BlogsFeed() {
     useEffect(() => {
         const queryBlogs = selectQuery(orderFeedBy);
         const unsubscribeSnap = onSnapshot(queryBlogs, (snap) => {
+            console.log("test");
             const blogs = [];
             snap.forEach((doc) => {
                 blogs.push({ ...doc.data(), id: doc.id });
             });
+            console.table(blogs);
             setBlogsArr(blogs);
         });
         return () => unsubscribeSnap();
     }, [orderFeedBy]);
+
+    console.log(blogsArr);
 
     return (
         <Container

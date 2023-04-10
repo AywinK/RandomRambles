@@ -8,18 +8,12 @@ import { collectionRef } from "./components/helperFuncs/firebaseConfig";
 import { onSnapshot, query, orderBy } from "firebase/firestore";
 // import BlogPage from "./components/BlogPage";
 import { lazy, Suspense } from 'react';
-import { Spinner } from "@chakra-ui/spinner";
-import { Center } from "@chakra-ui/layout";
 
 const BlogPage = lazy(() => import("./components/BlogPage"));
 
 function App() {
 
   const [blogsArr, setBlogsArr] = useState([]);
-
-  const [recentlyViewedBlogPage, setRecentlyViewedBlogPage] = useState("test");
-
-  console.log(recentlyViewedBlogPage + " line 20")
 
   useEffect(() => {
     const queryBlogs = query(collectionRef, orderBy("createdAt", "desc"));
@@ -48,14 +42,14 @@ function App() {
           pages={[{ name: "Home", route: "/" }, { name: "Create Post", route: "/createpost" }]}
         />
 
-        <Suspense fallback={<Center h="100vh" w="100vw"><Spinner size="xl" label="Loading... Please Wait" top="50%" left="50%" ></Spinner></Center>}>
+        <Suspense fallback={<h1>Loading... Please Wait</h1>}>
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/createpost" element={<CreatePost />}></Route>
             {blogsArr.map(blog => {
-              const { title, id } = blog;
+              const { title, id, textContentArr, imageURL } = blog;
               return (
-                <Route key={id} path={`/${title}`} element={<BlogPage setRecentlyViewedBlogPage={setRecentlyViewedBlogPage} {...blog} />}></Route>
+                <Route key={id} path={`/${title}`} element={<BlogPage title={title} imageURL={imageURL} textContentArr={textContentArr} id={id} />}></Route>
               )
             })}
           </Routes>
