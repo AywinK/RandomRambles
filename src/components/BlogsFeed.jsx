@@ -17,7 +17,7 @@ function BlogsFeed() {
     function selectQuery(orderFeedBy) {
         const orderOptions = {
             "recently created": () => query(collectionRef, limit(6), orderBy("createdAt", "desc")),
-            "most viewed": () => query(collectionRef, limit(6), orderBy("views", "desc")),
+            "most viewed": () => query(collectionRef, limit(6), orderBy("viewCount", "desc")),
             "view all": () => query(collectionRef, orderBy("createdAt", "desc"))
         };
 
@@ -80,6 +80,14 @@ function BlogsFeed() {
                     onClick={handleClick}
                     value="view all"
                 >View All</Button>
+                                <Button
+                    fontSize={["smaller", "initial"]}
+                    p={5}
+                    borderRadius={40}
+                    colorScheme={((orderFeedBy === "most viewed") ? "linkedin" : "whiteAlpha")}
+                    onClick={handleClick}
+                    value="most viewed"
+                >Most Viewed</Button>
 
             </Flex>
 

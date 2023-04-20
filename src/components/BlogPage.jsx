@@ -10,9 +10,10 @@ function BlogPage(props) {
 
   const { setRecentlyViewedBlogPage, id, title, imageURL, textContentArr } = props;
 
-  console.log(id);
 
   useEffect(() => {
+    console.log(`%c${id}`, "font-size:40px");
+
     setRecentlyViewedBlogPage(id);
 
   }, [])
